@@ -1,0 +1,12 @@
+POST http://localhost:15672/api/exchanges/%2F/json-get/publish
+Authorization: Basic Z3Vlc3Q6Z3Vlc3Q=
+Content-Type: application/json
+
+{
+    "properties": {
+    },
+    "routing_key": "q_test",
+    "payload": "{}",
+    "payload_encoding": "string"
+}
+###

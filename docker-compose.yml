@@ -1,0 +1,36 @@
+version: "3.7"
+
+services:
+  rabbitmq:
+    build:
+      context: .
+      dockerfile: rabbitmq.Dockerfile
+    hostname: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+  
+  postgres:
+    build:
+      context: .
+      dockerfile: postgres.Dockerfile
+    hostname: postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+  
+  state:
+    build:
+      context: .
+      dockerfile: State/Dockerfile
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+      - POSTGRES_CONNECTION=Host=postgres;Database=ai_state;Username=postgres;Password=password
+    depends_on:
+      - rabbitmq
+      - postgres
